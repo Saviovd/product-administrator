@@ -4,7 +4,7 @@
   Nenhum produto encontrado.
 </div>
 
-<ul *ngIf="!loading && products?.length > 0">
+<ul *ngIf="!loading && products && products.length > 0">
   <li *ngFor="let product of products">
     <img [src]="product.image" alt="{{ product.name }}" width="100" />
     <h3>{{ product.name }}</h3>
