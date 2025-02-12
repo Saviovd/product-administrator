@@ -12,14 +12,18 @@ import {
   withEventReplay,
 } from '@angular/platform-browser';
 import { ProductListComponent } from './components/product-list/product-list.component';
+import { ProductFormComponent } from './components/product-form/product-form.component';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    ProductListComponent,
     importProvidersFrom(HttpClient),
     provideHttpClient(withFetch()),
+    ProductListComponent,
+    ProductFormComponent,
+    provideAnimations()
   ],
 };

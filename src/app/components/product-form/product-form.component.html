@@ -1,0 +1,21 @@
+<div class="container">
+  <h2>Cadastro de Produto</h2>
+
+  <form [formGroup]="productForm" (ngSubmit)="addProduct()">
+    <label>Nome:</label>
+    <input type="text" formControlName="name" required>
+
+    <label>Descrição:</label>
+    <textarea formControlName="description" required></textarea>
+
+    <label>Preço:</label>
+    <input type="number" formControlName="price" required>
+
+    <label>Imagem (URL):</label>
+    <input type="text" formControlName="image">
+
+    <button type="submit" [disabled]="productForm.invalid">Cadastrar</button>
+  </form>
+
+  <p class="message" *ngIf="message">{{ message }}</p>
+</div>
