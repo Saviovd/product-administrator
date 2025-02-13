@@ -1,0 +1,31 @@
+<a (click)="toggleSidebar()" class="cursor-pointer text-blue-600 hover:underline">
+  Carrinho
+</a>
+
+<div
+  class="fixed top-0 right-0 w-80 h-full bg-white shadow-lg"
+  [@sidebarAnimation]="isOpen ? 'open' : 'closed'"
+>
+  <div class="flex justify-between items-center p-4 border-b">
+    <h2 class="text-xl font-bold">Carrinho</h2>
+    <button (click)="closeSidebar()" class="text-gray-600 hover:text-gray-800">
+      ✖
+    </button>
+  </div>
+
+  <div class="p-4">
+    <div *ngIf="cartItems.length === 0" class="text-center text-gray-500">
+      Seu carrinho está vazio.
+    </div>
+
+    <div
+      *ngFor="let item of cartItems"
+      class="flex justify-between border-b py-2"
+    >
+      <div>
+        <p class="font-semibold">{{ item.name }}</p>
+        <p class="text-gray-600">R$ {{ item.price }} x {{ item.quantity }}</p>
+      </div>
+    </div>
+  </div>
+</div>
