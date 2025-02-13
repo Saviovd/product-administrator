@@ -1,21 +1,57 @@
-<div class="container">
-  <h2>Cadastro de Produto</h2>
+<div
+  class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200"
+>
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">Cadastro de Produto</h2>
 
-  <form [formGroup]="productForm" (ngSubmit)="addProduct()">
-    <label>Nome:</label>
-    <input type="text" formControlName="name" required>
+  <form [formGroup]="productForm" (ngSubmit)="addProduct()" class="space-y-4">
+    <div>
+      <label class="block text-gray-700 font-medium">Nome:</label>
+      <input
+        type="text"
+        formControlName="name"
+        required
+        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      />
+    </div>
 
-    <label>Descrição:</label>
-    <textarea formControlName="description" required></textarea>
+    <div>
+      <label class="block text-gray-700 font-medium">Descrição:</label>
+      <textarea
+        formControlName="description"
+        required
+        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      ></textarea>
+    </div>
 
-    <label>Preço:</label>
-    <input type="number" formControlName="price" required>
+    <div>
+      <label class="block text-gray-700 font-medium">Preço:</label>
+      <input
+        type="number"
+        formControlName="price"
+        required
+        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      />
+    </div>
 
-    <label>Imagem (URL):</label>
-    <input type="text" formControlName="image">
+    <div>
+      <label class="block text-gray-700 font-medium">Imagem (URL):</label>
+      <input
+        type="text"
+        formControlName="image"
+        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      />
+    </div>
 
-    <button type="submit" [disabled]="productForm.invalid">Cadastrar</button>
+    <button
+      type="submit"
+      [disabled]="productForm.invalid"
+      class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 disabled:opacity-50"
+    >
+      Cadastrar
+    </button>
   </form>
 
-  <p class="message" *ngIf="message">{{ message }}</p>
+  <p class="text-green-600 text-center font-medium mt-4" *ngIf="message">
+    {{ message }}
+  </p>
 </div>
