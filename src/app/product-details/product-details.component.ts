@@ -13,6 +13,7 @@ export class ProductDetailsComponent implements OnInit {
   productId: string | null = null;
   product: Product | null = null;
   loading: boolean = true;
+  quantity: number = 1;
 
   constructor(
     private route: ActivatedRoute,
@@ -31,6 +32,34 @@ export class ProductDetailsComponent implements OnInit {
 
   navigateToProducts(): void {
     this.router.navigate(['/']);
+  }
+
+  addToCart(): void {
+    if (!this.product) return;
+    if (typeof window == undefined) return;
+
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    const existingProduct = cart.find(
+      (item: { _id: string }) => item._id === this.product!._id
+    );
+
+    if (existingProduct) {
+      existingProduct.quantity += this.quantity;
+    } else {
+      cart.push({ ...this.product, quantity: this.quantity });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Produto adicionado ao carrinho!');
+    this.quantity = 1
+  }
+
+  updateQuantity(change: number): void {
+    const newQuantity = this.quantity + change;
+    if (newQuantity > 0) {
+      this.quantity = newQuantity;
+    }
   }
 
   private loadProduct(id: string): void {
