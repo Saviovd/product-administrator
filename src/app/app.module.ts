@@ -5,17 +5,23 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductFormComponent } from './components/product-form/product-form.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app.routes';
+import { RouterModule } from '@angular/router';
+import { ProductDetailsComponent } from './product-details/product-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductDetailsComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
-    ReactiveFormsModule 
+    ReactiveFormsModule,
+    AppRoutingModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
