@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService, Product } from '../../services/product.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Router } from '@angular/router';
 import { take } from 'rxjs';
 
 @Component({
@@ -9,7 +10,7 @@ import { take } from 'rxjs';
   standalone: true,
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
 })
 export class ProductListComponent implements OnInit {
   products: Product[] = [];
@@ -17,27 +18,35 @@ export class ProductListComponent implements OnInit {
   searchTerm: string = '';
   loading: boolean = true;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router: Router) {}
 
   ngOnInit(): void {
-    this.productService.getProducts().pipe(take(1)).subscribe({
-      next: (data: Product[] = []) => {
-        console.log('all data:', data);
-        this.products = data || [];
-        this.filteredProducts = [...this.products];
-        this.loading = false;
-      },
-      error: (error) => {
-        console.error('Erro ao carregar produtos', error);
-        this.loading = false;
-      }
-    });
+    this.productService
+      .getProducts()
+      .pipe(take(1))
+      .subscribe({
+        next: (data: Product[] = []) => {
+          this.products = data || [];
+          this.filteredProducts = [...this.products];
+          this.loading = false;
+        },
+        error: (error) => {
+          console.error('Erro ao carregar produtos', error);
+          this.loading = false;
+        },
+      });
+  }
+
+  goToProduct(productId: string): void {
+    this.router.navigate(['/products', productId]);
   }
 
   filterProducts(): void {
     const term = this.searchTerm.toLowerCase();
-    this.filteredProducts = this.products.filter(product =>
-      product.name.toLowerCase().includes(term) || product.description.toLowerCase().includes(term)
+    this.filteredProducts = this.products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(term) ||
+        product.description.toLowerCase().includes(term)
     );
   }
 }

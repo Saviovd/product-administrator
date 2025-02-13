@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Product {
-  id: number;
+  _id: string;
   name: string;
   price: number;
   image: string;
@@ -22,7 +22,7 @@ export class ProductService {
     return this.http.get<Product[]>(this.apiUrl);
   }
 
-  getProductById(id: number): Observable<Product> {
+  getProductById(id: string): Observable<Product> {
     return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 
@@ -30,7 +30,7 @@ export class ProductService {
     return this.http.post<Product>(this.apiUrl, product);
   }
 
-  deleteProduct(id: number): Observable<void> {
+  deleteProduct(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
