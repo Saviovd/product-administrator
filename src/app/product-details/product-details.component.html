@@ -32,7 +32,12 @@
     <p
       class="text-xl font-semibold text-gray-900 mt-6 text-center sm:text-left"
     >
-      Preço: R$ {{ product?.price }}
+      Preço: {{
+        (product?.price ?? 0).toLocaleString("pt-BR", {
+          style: "currency",
+          currency: "BRL"
+        })
+      }}
     </p>
 
     <div class="mt-6 flex flex-col items-center sm:items-start">
