@@ -1,5 +1,5 @@
 <main
-  class="max-w-md mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10 p-6"
+  class="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden mt-10 p-6"
 >
   <ng-container *ngIf="loading; else content">
     <div class="flex justify-center items-center h-48">
@@ -8,44 +8,48 @@
   </ng-container>
 
   <ng-template #content>
-    <h2 class="text-2xl font-bold text-gray-800">{{ product?.name }}</h2>
-    <p class="text-gray-600 mt-2">{{ product?.description }}</p>
+    <div class="text-center sm:text-left">
+      <h2 class="text-2xl font-bold text-gray-800">{{ product?.name }}</h2>
+      <p class="text-gray-600 mt-2">{{ product?.description }}</p>
+    </div>
 
-    <div class="mt-4">
+    <div class="mt-6">
       <img
         *ngIf="product?.image; else noImage"
         [src]="product?.image"
         alt="{{ product?.name }}"
-        class="w-full h-48 object-cover rounded-md"
+        class="w-full h-64 sm:h-80 object-cover rounded-md"
       />
       <ng-template #noImage>
         <div
-          class="w-full h-48 bg-gray-200 flex items-center justify-center rounded-md"
+          class="w-full h-64 sm:h-80 bg-gray-200 flex items-center justify-center rounded-md"
         >
           <span class="text-gray-500">Imagem não disponível</span>
         </div>
       </ng-template>
     </div>
 
-    <p class="text-lg font-semibold text-gray-900 mt-4">
+    <p
+      class="text-xl font-semibold text-gray-900 mt-6 text-center sm:text-left"
+    >
       Preço: R$ {{ product?.price }}
     </p>
 
-    <div class="flex flex-col items-center justify-start mt-4 w-full">
-      <p class="">Quantidade</p>
-      <div class="">
+    <div class="mt-6 flex flex-col items-center sm:items-start">
+      <p class="text-gray-700 mb-2">Quantidade</p>
+      <div class="flex items-center">
         <button
-          class="px-3 py-1 bg-gray-300 rounded-l hover:bg-gray-400 cursor-pointer"
+          class="px-4 py-2 bg-gray-300 rounded-l hover:bg-gray-400 transition-colors duration-300 cursor-pointer"
           (click)="updateQuantity(-1)"
         >
           -
         </button>
         <span
-          class="w-16 text-center border-x bg-gray-200 border-gray-700 h-full py-1 px-8"
+          class="w-16 text-center border-x bg-gray-200 border-gray-300 py-2"
           >{{ quantity }}</span
         >
         <button
-          class="px-3 py-1 bg-gray-300 rounded-r hover:bg-gray- cursor-pointer"
+          class="px-4 py-2 bg-gray-300 rounded-r hover:bg-gray-400 transition-colors duration-300 cursor-pointer"
           (click)="updateQuantity(1)"
         >
           +
@@ -53,17 +57,19 @@
       </div>
     </div>
 
+    <div class="mt-8 flex flex-col sm:flex-row gap-4">
+      <button
+        class="w-full sm:w-auto flex-grow bg-green-500 text-white py-2 px-6 rounded-lg hover:bg-green-600 transition-colors duration-300 cursor-pointer"
+        (click)="addToCart()"
+      >
+        Adicionar ao Carrinho
+      </button>
+    </div>
     <button
-      class="mt-4 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition cursor-pointer"
-      (click)="addToCart()"
-    >
-      Adicionar ao Carrinho
-    </button>
-    <button
-      class="mt-6 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition cursor-pointer"
+      class="w-full sm:w-auto flex-grow bg-blue-500 text-white py-2 px-6 rounded-lg hover:bg-blue-600 transition-colors duration-300 cursor-pointer mt-5"
       (click)="navigateToProducts()"
     >
-      Voltar aos produtos
+      Voltar aos Produtos
     </button>
   </ng-template>
 </main>

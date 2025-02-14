@@ -2,16 +2,18 @@
   <div class="w-full max-w-4xl">
     <button
       (click)="showForm = !showForm"
-      class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition cursor-pointer">
+      class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition cursor-pointer"
+    >
       Cadastrar Produto +
     </button>
   </div>
 
   <div
     [@toggleForm]="showForm ? 'open' : 'closed'"
-    class="form-container w-full max-w-lg shadow-lg rounded-lg mt-4 transition-all overflow-hidden">
+    class="form-container w-full max-w-lg shadow-lg rounded-lg my-4 transition-all overflow-hidden"
+  >
     <app-product-form></app-product-form>
   </div>
 
-  <app-product-list class="w-full max-w-4xl mt-6"></app-product-list>
+  <app-product-list class="w-full max-w-4xl"></app-product-list>
 </main>
