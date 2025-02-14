@@ -5,32 +5,98 @@
 
   <form [formGroup]="productForm" (ngSubmit)="addProduct()" class="space-y-4">
     <div>
-      <label class="block text-gray-700 font-medium">Nome:</label>
+      <label
+        class="block text-gray-700 font-medium"
+        [ngClass]="{
+          'text-red-500':
+            productForm.get('name')?.errors && productForm.get('name')?.touched
+        }"
+        >Nome:</label
+      >
       <input
         type="text"
         formControlName="name"
         required
-        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        [ngClass]="{
+          'border-red-500':
+            productForm.get('name')?.errors && productForm.get('name')?.touched
+        }"
+        class="w-full p-2 border rounded-md outline-none"
       />
+      <p
+        *ngIf="
+          productForm.get('name')?.errors && productForm.get('name')?.touched
+        "
+        class="text-red-500 text-sm"
+      >
+        O nome é obrigatório.
+      </p>
     </div>
 
     <div>
-      <label class="block text-gray-700 font-medium">Descrição:</label>
+      <label
+        class="block text-gray-700 font-medium"
+        [ngClass]="{
+          'text-red-500':
+            productForm.get('description')?.errors &&
+            productForm.get('description')?.touched
+        }"
+        >Descrição:</label
+      >
       <textarea
         formControlName="description"
         required
-        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        [ngClass]="{
+          'border-red-500':
+            productForm.get('description')?.errors &&
+            productForm.get('description')?.touched
+        }"
+        class="w-full p-2 border rounded-md outline-none"
       ></textarea>
+      <p
+        *ngIf="
+          productForm.get('description')?.errors &&
+          productForm.get('description')?.touched
+        "
+        class="text-red-500 text-sm"
+      >
+        A descrição é obrigatória.
+      </p>
     </div>
 
     <div>
-      <label class="block text-gray-700 font-medium">Preço:</label>
+      <label
+        class="block text-gray-700 font-medium"
+        [ngClass]="{
+          'text-red-500':
+            productForm.get('price')?.errors &&
+            productForm.get('price')?.touched
+        }"
+        >Preço:</label
+      >
       <input
         type="number"
         formControlName="price"
         required
-        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        [ngClass]="{
+          'border-red-500':
+            productForm.get('price')?.errors &&
+            productForm.get('price')?.touched
+        }"
+        class="w-full p-2 border rounded-md outline-none"
       />
+      <p
+        *ngIf="productForm.get('price')?.errors?.['required'] && productForm.get('price')?.touched"
+        class="text-red-500 text-sm"
+      >
+        O preço é obrigatório.
+      </p>
+      <p
+        *ngIf="productForm.get('price')?.errors?.['min'] && productForm.get('price')?.touched"
+        class="text-red-500 text-sm"
+      >
+        O preço deve ser maior que 0.
+      </p>
     </div>
 
     <div>
@@ -38,20 +104,26 @@
       <input
         type="text"
         formControlName="image"
-        class="w-full p-2 border rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        class="w-full p-2 border rounded-md outline-none"
       />
     </div>
 
     <button
       type="submit"
-      [disabled]="productForm.invalid"
-      class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 disabled:opacity-50"
+      class="w-full bg-blue-600 text-white py-2 rounded-md font-semibold hover:bg-blue-700 disabled:opacity-50 cursor-pointer"
     >
       Cadastrar
     </button>
   </form>
 
-  <p class="text-green-600 text-center font-medium mt-4" *ngIf="message">
+  <p
+    class="text-center font-medium mt-4"
+    [ngClass]="{
+      'text-green-600': messageType === 'success',
+      'text-red-600': messageType === 'error'
+    }"
+    *ngIf="message"
+  >
     {{ message }}
   </p>
 </div>

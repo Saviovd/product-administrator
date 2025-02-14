@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 export class ProductFormComponent {
   productForm: FormGroup;
   message: string = '';
+  messageType: 'success' | 'error' | null = null;
 
   constructor(private fb: FormBuilder, private productService: ProductService) {
     this.productForm = this.fb.group({
@@ -26,18 +27,22 @@ export class ProductFormComponent {
 
   addProduct() {
     if (this.productForm.invalid) {
+      this.productForm.markAllAsTouched();
       this.message = 'Preencha todos os campos obrigatórios!';
+      this.messageType = 'error';
       return;
     }
 
     this.productService.addProduct(this.productForm.value).subscribe({
       next: () => {
         this.message = 'Produto cadastrado com sucesso!';
+        this.messageType = 'success';
         this.productForm.reset();
       },
       error: (err) => {
         console.error('Erro ao cadastrar produto:', err);
         this.message = 'Erro ao cadastrar produto. Tente novamente!';
+        this.messageType = 'error';
       },
     });
   }
