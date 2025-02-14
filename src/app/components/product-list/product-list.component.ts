@@ -17,6 +17,10 @@ export class ProductListComponent implements OnInit {
   filteredProducts: Product[] = [];
   searchTerm: string = '';
   loading: boolean = true;
+  currentPage: number = 1;
+  itemsPerPage: number = 16;
+  totalPages: number = 0;
+  pagedProducts: Product[] = [];
 
   constructor(private productService: ProductService, private router: Router) {}
 
@@ -28,6 +32,7 @@ export class ProductListComponent implements OnInit {
         next: (data: Product[] = []) => {
           this.products = data || [];
           this.filteredProducts = [...this.products];
+          this.updatePagination();
           this.loading = false;
         },
         error: (error) => {
@@ -48,5 +53,28 @@ export class ProductListComponent implements OnInit {
         product.name.toLowerCase().includes(term) ||
         product.description.toLowerCase().includes(term)
     );
+    this.currentPage = 1;
+    this.updatePagination();
+  }
+
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.pagedProducts = this.filteredProducts.slice(startIndex, endIndex);
+  }
+
+  changePage(page: number): void {
+    if (page < 1 || page > this.totalPages) return;
+    this.currentPage = page;
+    this.updatePagination();
+  }
+
+  getPages(): number[] {
+    const pages = [];
+    for (let i = 1; i <= this.totalPages; i++) {
+      pages.push(i);
+    }
+    return pages;
   }
 }

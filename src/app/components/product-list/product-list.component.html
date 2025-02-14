@@ -25,11 +25,11 @@
 </div>
 
 <ul
-  *ngIf="!loading && filteredProducts.length > 0"
+  *ngIf="!loading && pagedProducts.length > 0"
   class="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
 >
   <li
-    *ngFor="let product of filteredProducts"
+    *ngFor="let product of pagedProducts"
     class="flex flex-col bg-white shadow-md rounded-lg border border-gray-200 overflow-hidden cursor-pointer hover:shadow-lg transition-shadow duration-300"
     (click)="goToProduct(product._id)"
   >
@@ -65,3 +65,28 @@
     </div>
   </li>
 </ul>
+
+<div *ngIf="totalPages > 1" class="flex justify-center mt-8">
+  <button
+    (click)="changePage(currentPage - 1)"
+    [disabled]="currentPage === 1"
+    class="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+  >
+    Anterior
+  </button>
+  <span
+    *ngFor="let page of getPages()"
+    (click)="changePage(page)"
+    class="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100"
+    [ngClass]="{ 'text-gray-900 font-medium': page === currentPage }"
+  >
+    {{ page }}
+  </span>
+  <button
+    (click)="changePage(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+    class="px-4 py-2 mx-1 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 disabled:opacity-50"
+  >
+    Próxima
+  </button>
+</div>
